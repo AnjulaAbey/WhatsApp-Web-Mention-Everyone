@@ -64,27 +64,24 @@ try:
         EC.visibility_of_element_located((By.XPATH, '//div[@title="Group info"]'))
     )
     print("Group Info Loaded")
-    time.sleep(10)
+    time.sleep(20)
 
-    # Find and click the target element directly
-    try:
-        target_element_xpath = '//span[@data-icon="exit"]'
-        target_element = WebDriverWait(driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, target_element_xpath))
-        )
-        target_element.click()
-        print("Clicked on the target element.")
-        time.sleep(10)
-    except Exception as e:
-        print(f"Error occurred while clicking the target element: {str(e)}")
-
-    # Example: Retrieve all group members (you can modify as per your actual use case)
-    members = driver.find_elements(By.XPATH, '//div[@role="button"]//span[@dir="auto"]')
-    group_members = [member.text for member in members]
-
+    # Retrieve all group members
+    members = []
+    member_elements = WebDriverWait(driver, 10).until(
+        EC.presence_of_all_elements_located((By.XPATH, '//div[@role="gridcell"]//span[@dir="auto"]'))
+    )
+    for element in member_elements:
+            members.append(element.text)
+    members.pop(0)  # Remove the first element which is the group name
+    members.pop(0)  # Remove the second element which is my contact
+    # Print filtered members list
+    print("Filtered Members List:", end=' ')
+    print(members)
+    time.sleep(5)
     # Go back to the group chat
-    driver.find_element(By.XPATH, '//span[@data-icon="x"]').click()
-
+    driver.find_element(By.XPATH, '//div[@role="button"]//span[@data-icon="x"]').click()
+    print("Back to group chat")
     # Wait for the chat to load
     WebDriverWait(driver, 30).until(
         EC.visibility_of_element_located((By.XPATH, '//div[@contenteditable="true"][@data-tab="1"]'))
@@ -95,7 +92,7 @@ try:
     chat_box.click()
 
     # Typing the mentions
-    for member in group_members:
+    for member in members:
         chat_box.send_keys('@' + member)
         time.sleep(1)
         chat_box.send_keys(Keys.TAB)
@@ -111,4 +108,3 @@ except Exception as e:
 finally:
     # Quit the driver
     driver.quit()
-
