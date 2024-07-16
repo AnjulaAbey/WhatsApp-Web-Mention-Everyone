@@ -1,9 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 import time
 
 # Path to your geckodriver
@@ -80,7 +80,7 @@ try:
     print(members)
     time.sleep(5)
     # Go back to the group chat
-    driver.find_element(By.XPATH, '//div[@role="button"]//span[@data-icon="x"]').click()
+    driver.find_element(By.XPATH, '//div[@aria-label="Close"]').click()
     print("Back to group chat")
     # Wait for the chat to load
     WebDriverWait(driver, 30).until(
@@ -98,7 +98,7 @@ try:
         chat_box.send_keys(Keys.TAB)
 
     # Sending the message
-    chat_box.send_keys(Keys.ENTER)
+    # chat_box.send_keys(Keys.ENTER)
 
     print("Message sent!")
 
