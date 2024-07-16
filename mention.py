@@ -28,7 +28,7 @@ WebDriverWait(driver, 30).until(
 )
 
 print("WhatsApp Web loaded.")
-
+time.sleep(10)
 # Find the search input and interact with it
 try:
     search_box = WebDriverWait(driver, 10).until(
@@ -84,16 +84,18 @@ try:
     print("Back to group chat")
     # Wait for the chat to load
     WebDriverWait(driver, 30).until(
-        EC.visibility_of_element_located((By.XPATH, '//div[@contenteditable="true"][@data-tab="1"]'))
+        EC.visibility_of_element_located((By.XPATH, '//div[@contenteditable="true"][@data-lexical-editor="true"]'))
     )
 
     # Mentioning everyone in the group
-    chat_box = driver.find_element(By.XPATH, '//div[@contenteditable="true"][@data-tab="1"]')
+    chat_box = driver.find_element(By.XPATH, '//div[@contenteditable="true"][@data-tab="10"]')
     chat_box.click()
 
     # Typing the mentions
     for member in members:
-        chat_box.send_keys('@' + member)
+        chat_box.send_keys('@')
+        for i in range(0,len(member)):
+            chat_box.send_keys(member[i])
         time.sleep(1)
         chat_box.send_keys(Keys.TAB)
 
@@ -107,4 +109,5 @@ except Exception as e:
 
 finally:
     # Quit the driver
-    driver.quit()
+    print("Quitting the driver...")
+    # driver.quit()
