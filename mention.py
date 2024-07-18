@@ -8,8 +8,9 @@ import time
 
 
 # Inputs
-n= 10 # Number of times to press the down arrow key to load more contacts
-group = "cse track xi" # Group name
+group = input("Enter the group name: ")
+n= int(input("Enter the number of members in the group: "))
+
 # Path to your geckodriver
 driver_path = '/snap/bin/geckodriver'
 service = Service(executable_path=driver_path)
