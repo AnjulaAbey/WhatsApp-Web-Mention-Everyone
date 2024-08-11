@@ -70,3 +70,9 @@ The script performs the following steps:
 
 - If the script fails to find elements, ensure the XPaths used in the script are correct and haven't changed due to WhatsApp Web updates.
 - Increase the wait times if elements are not loading within the specified time.
+
+## Contributors
+
+<a href="https://github.com/AnjulaAbey/WhatsApp-Web-Mention-Everyone/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AnjulaAbey/WhatsApp-Web-Mention-Everyone" />
+</a>
